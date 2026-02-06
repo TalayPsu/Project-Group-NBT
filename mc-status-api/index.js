@@ -1,9 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const util = require("minecraft-server-util");
+const path = require("path");
 
-const app = express();
+const app = express();           
 app.use(cors());
+
+app.use(express.static(path.join(__dirname, "public")));
 
 const SERVER_IP = "34.15.148.61";
 const SERVER_PORT = 25565;
@@ -22,6 +25,11 @@ app.get("/status", async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
+
 app.listen(3000, () => {
   console.log("Minecraft Status API running on port 3000");
 });
+

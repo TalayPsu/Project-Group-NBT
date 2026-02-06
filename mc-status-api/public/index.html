@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Minecraft Server Status</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="card">
+    <h1>Minecraft Server Status</h1>
+    <p id="status">Loading...</p>
+    <p><b>Online:</b> <span id="online">-</span></p>
+    <p><b>Max:</b> <span id="max">-</span></p>
+    <p><b>Version:</b> <span id="version">-</span></p>
+    <p><b>Latency:</b> <span id="latency">-</span> ms</p>
+    <button onclick="loadStatus()">Refresh</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
