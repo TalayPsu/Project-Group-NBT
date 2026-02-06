@@ -1,66 +1,212 @@
-body {
-  font-family: 'Press Start 2P', monospace;
-  background: linear-gradient(#4caf50, #2e7d32);
+/* Hide scrollbars (all browsers) */
+*{
+  box-sizing: border-box;
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge legacy */
+}
+*::-webkit-scrollbar{ display:none; }
+
+/* Page */
+body{
+  margin: 0;
+  min-height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+
+  padding: 18px;
+
+  font-family: 'Press Start 2P', monospace;
+  color: #ffffff;
+
+  /* Dark grey background like the screenshot */
+  background: linear-gradient(#3a3a3a, #2b2b2b);
+  overflow: hidden; /* no page scrollbar */
 }
 
-.card {
-  background: #2b2b2b;
-  color: #e0e0e0;
-  padding: 24px;
-  border-radius: 12px;
-  width: 380px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
-  text-align: center;
-}
+/* Main panel */
+.card{
+  width: min(96vw, 1600px);
+  padding: 22px 22px 18px;
+  border-radius: 22px;
 
-h1 {
-  color: #6cff6c;
-  margin-bottom: 10px;
-}
-
-.online {
-  color: #00e676;
-}
-
-.offline {
-  color: #ff5252;
-}
-
-.stats {
   display: flex;
-  justify-content: space-around;
-  margin: 15px 0;
+  flex-direction: column;
+  gap: 18px;
+
+  background: rgba(255,255,255,0.035);
+
+  /* soft outer shadow + subtle inner depth */
+  box-shadow:
+    0 18px 55px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    inset 0 -10px 25px rgba(0,0,0,0.25);
 }
 
-.stats div span {
-  font-size: 20px;
+/* Titles */
+h1, h2, p{ margin: 0; }
+
+h1{
+  text-align: center;
+  font-size: 34px;
+  letter-spacing: 2px;
+  color: #6cff6c;
+
+  text-shadow:
+    0 2px 0 rgba(0,0,0,0.65),
+    0 0 10px rgba(108,255,108,0.25);
+}
+
+/* Status bar */
+#status{
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 10px;
+
+  text-align: center;
+  font-weight: normal;
+  letter-spacing: 1px;
+
+  background: rgba(0,0,0,0.35);
+}
+
+#status.online{ color: #4cff4c; }
+#status.offline{ color: #4cff4c; }
+
+/* Stats section */
+.stats{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+
+  padding: 16px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.03);
+}
+
+.stats div{
+  min-height: 84px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.35);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px 10px;
+}
+
+.stats span{
   display: block;
+  font-size: 26px;
+  line-height: 1.05;
+  color: #ffffff;
 }
 
-ul {
-  list-style: none;
+.stats small{
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+}
+
+/* Info bars */
+.card p{
+  width: 100%;
+  padding: 16px 16px;
+  border-radius: 10px;
+
+  background: rgba(0,0,0,0.22);
+  line-height: 1.7;
+
+  text-align: left;
+  font-size: 14px;
+}
+
+.card p b{
+  color: #ffffff;
+}
+
+/* Players title */
+h2{
+  padding: 18px 0 8px;
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: 2px;
+  color: #ffffff;
+
+  text-shadow: 0 2px 0 rgba(0,0,0,0.65);
+}
+
+/* Players list */
+ul{
+  margin: 0;
   padding: 0;
-  max-height: 100px;
-  overflow-y: auto;
+
+  list-style: none; /* we'll draw bullet ourselves */
+  max-height: 170px;
+  overflow: hidden;
 }
 
-li {
-  background: #3c3c3c;
-  margin: 4px 0;
-  padding: 6px;
-  border-radius: 6px;
+ul li{
+  width: 100%;
+  padding: 14px 16px 14px 16px;
+  border-radius: 10px;
+
+  background: rgba(0,0,0,0.35);
+  font-size: 14px;
+  position: relative;
 }
 
-button {
-  margin-top: 15px;
-  background: #6cff6c;
+/* bullet dot like screenshot */
+ul li::before{
+  content: "•";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.9;
+}
+
+ul li{
+  padding-left: 34px; /* make room for bullet */
+}
+
+ul li:not(:last-child){
+  margin-bottom: 12px;
+}
+
+/* Button */
+button{
+  width: 100%;
+  margin-top: 8px;
+
   border: none;
-  padding: 10px 16px;
-  border-radius: 8px;
+  border-radius: 12px;
+  padding: 16px 0;
+
+  background: #6cff6c;
+  color: #1e1e1e;
+
   font-family: inherit;
+  font-size: 16px;
+  letter-spacing: 1px;
+
   cursor: pointer;
+  box-shadow: 0 5px 0 rgba(63,168,63,0.95);
+}
+
+button:hover{ filter: brightness(1.05); }
+button:active{
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+/* Responsive */
+@media (max-width: 700px){
+  .stats{ grid-template-columns: 1fr; }
+  h1{ font-size: 28px; }
+  h2{ font-size: 24px; }
+  .card p, ul li{ font-size: 12px; }
 }
