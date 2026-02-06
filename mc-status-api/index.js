@@ -5,7 +5,7 @@ const util = require("minecraft-server-util");
 const app = express();
 app.use(cors());
 
-const SERVER_IP = "YOUR_VM_EXTERNAL_IP";
+const SERVER_IP = "34.15.148.61";
 const SERVER_PORT = 25565;
 
 app.get("/status", async (req, res) => {
