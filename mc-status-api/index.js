@@ -14,11 +14,18 @@ const SERVER_PORT = 25565;
 app.get("/status", async (req, res) => {
   try {
     const status = await util.status(SERVER_IP, SERVER_PORT);
+
+    const playerNames =
+    status.players.sample
+      ? status.players.sample.map(p => p.name)
+      : [];
+
     res.json({
       onlinePlayers: status.players.online,
       maxPlayers: status.players.max,
       version: status.version.name,
-      latency: status.roundTripLatency
+      latency: status.roundTripLatency,
+      playerNames: playerNames
     });
   } catch (err) {
     res.status(500).json({ error: "Server offline" });
