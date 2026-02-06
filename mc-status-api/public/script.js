@@ -17,11 +17,22 @@ async function loadStatus() {
     playersEl.innerHTML = "";
 
     if (data.playerNames && data.playerNames.length > 0) {
-      data.playerNames.forEach(p => {
+      data.playerNames.forEach(player => {
         const li = document.createElement("li");
-        li.textContent = p;
+        li.className = "player";
+      
+        li.innerHTML = `
+          <img 
+            src="https://mc-heads.net/avatar/${player}/32" 
+            alt="${player}"
+            loading="lazy"
+          >
+          <span>${player}</span>
+        `;
+      
         playersEl.appendChild(li);
       });
+      
     } else {
       playersEl.innerHTML = "<li>No players online</li>";
     }

@@ -210,3 +210,27 @@ button:active{
   h2{ font-size: 24px; }
   .card p, ul li{ font-size: 12px; }
 }
+
+/* ===== Player with avatar ===== */
+li.player{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 16px; /* override bullet spacing */
+}
+
+li.player::before{
+  display: none; /* ไม่ใช้ bullet */
+}
+
+li.player img{
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.4);
+}
+
+li.player span{
+  font-size: 14px;
+}
