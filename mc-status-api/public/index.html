@@ -2,17 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Minecraft Server Status</title>
+  <title>Minecraft Server Dashboard</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="card">
-    <h1>Minecraft Server Status</h1>
-    <p id="status">Loading...</p>
-    <p><b>Online:</b> <span id="online">-</span></p>
-    <p><b>Max:</b> <span id="max">-</span></p>
+    <h1>⛏ Minecraft Server</h1>
+    <p id="status" class="offline">● Offline</p>
+
+    <div class="stats">
+      <div>
+        <span id="online">-</span>
+        <small>Online</small>
+      </div>
+      <div>
+        <span id="max">-</span>
+        <small>Max</small>
+      </div>
+    </div>
+
     <p><b>Version:</b> <span id="version">-</span></p>
-    <p><b>Latency:</b> <span id="latency">-</span> ms</p>
+    <p><b>Ping:</b> <span id="latency">-</span> ms</p>
+
+    <h2>Players</h2>
+    <ul id="players">
+      <li>No players</li>
+    </ul>
+
     <button onclick="loadStatus()">Refresh</button>
   </div>
 

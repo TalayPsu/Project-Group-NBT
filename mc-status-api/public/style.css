@@ -1,7 +1,6 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #121212;
-  color: white;
+  font-family: 'Press Start 2P', monospace;
+  background: linear-gradient(#4caf50, #2e7d32);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,17 +8,59 @@ body {
 }
 
 .card {
-  background: #1f1f1f;
-  padding: 20px;
+  background: #2b2b2b;
+  color: #e0e0e0;
+  padding: 24px;
   border-radius: 12px;
+  width: 380px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
   text-align: center;
-  width: 300px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+
+h1 {
+  color: #6cff6c;
+  margin-bottom: 10px;
+}
+
+.online {
+  color: #00e676;
+}
+
+.offline {
+  color: #ff5252;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0;
+}
+
+.stats div span {
+  font-size: 20px;
+  display: block;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+li {
+  background: #3c3c3c;
+  margin: 4px 0;
+  padding: 6px;
+  border-radius: 6px;
 }
 
 button {
-  padding: 8px 14px;
+  margin-top: 15px;
+  background: #6cff6c;
   border: none;
-  border-radius: 6px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: inherit;
   cursor: pointer;
 }
