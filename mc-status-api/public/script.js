@@ -44,6 +44,41 @@ async function loadStatus() {
   }
 }
 
+async function register() {
+  await fetch("/api/register", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      username: user.value,
+      password: pass.value
+    })
+  });
+  alert("Registered!");
+}
+
+async function login() {
+  const res = await fetch("/api/login", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      username: user.value,
+      password: pass.value
+    })
+  });
+  const data = await res.json();
+  localStorage.setItem("token", data.token);
+  alert("Login success");
+}
+
+async function openAdmin() {
+  const token = localStorage.getItem("token");
+  const res = await fetch("/api/admin", {
+    headers: { "Authorization": token }
+  });
+  const data = await res.json();
+  alert(JSON.stringify(data));
+}
+
 // auto refresh ทุก 10 วินาที
 setInterval(loadStatus, 10000);
 loadStatus();
