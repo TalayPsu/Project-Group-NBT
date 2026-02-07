@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 /* ================== CONFIG ================== */
-const SERVER_IP = "34.15.148.61";
+const SERVER_IP = "34.15.159.180";
 const SERVER_PORT = 25565;
 const JWT_SECRET = "secret"; // เปลี่ยนเป็นยากๆ
 
