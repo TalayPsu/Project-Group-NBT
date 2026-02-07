@@ -13,10 +13,11 @@ async function loadStatus() {
     statusEl.textContent = "● Online";
     statusEl.className = "online";
 
-    document.getElementById("online").textContent = data.onlinePlayers;
-    document.getElementById("max").textContent = data.maxPlayers;
+    document.getElementById("online").textContent = data.online;
+    document.getElementById("max").textContent = data.max;
     document.getElementById("version").textContent = data.version;
     document.getElementById("latency").textContent = data.latency;
+    
 
     playersEl.innerHTML = "";
 

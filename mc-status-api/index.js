@@ -77,6 +77,7 @@ app.get("/status", async (req, res) => {
       online: status.players.online,
       max: status.players.max,
       latency: status.roundTripLatency,
+      version: status.version.name,
       playerNames
     });
   } catch {
