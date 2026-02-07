@@ -21,7 +21,9 @@ body{
   color: #ffffff;
 
   /* Dark grey background like the screenshot */
-  background: linear-gradient(#3a3a3a, #2b2b2b);
+  background: url("latest.png")
+              no-repeat center center fixed;
+  background-size: cover;
   overflow: hidden; /* no page scrollbar */
 }
 
@@ -35,7 +37,8 @@ body{
   flex-direction: column;
   gap: 18px;
 
-  background: rgba(255,255,255,0.035);
+  background: rgba(37, 37, 37, 0.85);
+
 
   /* soft outer shadow + subtle inner depth */
   box-shadow:
@@ -68,7 +71,7 @@ h1{
   font-weight: normal;
   letter-spacing: 1px;
 
-  background: rgba(0,0,0,0.35);
+  background: rgba(0,0,0);
 }
 
 #status.online{ color: #4cff4c; }
@@ -88,7 +91,7 @@ h1{
 .stats div{
   min-height: 84px;
   border-radius: 12px;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0,0,0);
 
   display: flex;
   flex-direction: column;
@@ -117,7 +120,7 @@ h1{
   padding: 16px 16px;
   border-radius: 10px;
 
-  background: rgba(0,0,0,0.22);
+  background: rgba(0,0,0);
   line-height: 1.7;
 
   text-align: left;
@@ -154,7 +157,7 @@ ul li{
   padding: 14px 16px 14px 16px;
   border-radius: 10px;
 
-  background: rgba(0,0,0,0.35);
+  background: rgba(0,0,0);
   font-size: 14px;
   position: relative;
 }
