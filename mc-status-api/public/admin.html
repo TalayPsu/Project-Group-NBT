@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="card">
+  <h1>🛠 Admin Panel</h1>
+  <p>Welcome Admin</p>
+
+  <button onclick="loadAdmin()">Load Admin Info</button>
+  <button onclick="logout()">Logout</button>
+
+  <pre id="output"></pre>
+</div>
+
+<script>
+async function loadAdmin(){
+  const token = localStorage.getItem("token");
+  const res = await fetch("/api/admin", {
+    headers: { Authorization: token }
+  });
+
+  const data = await res.json();
+  output.textContent = JSON.stringify(data, null, 2);
+}
+
+function logout(){
+  localStorage.removeItem("token");
+  location.href = "/";
+}
+</script>
+
+</body>
+</html>

@@ -1,3 +1,7 @@
+const modal = document.getElementById("loginModal");
+document.getElementById("loginBtn").onclick = () => modal.classList.remove("hidden");
+document.querySelector(".close-btn").onclick = () => modal.classList.add("hidden");
+
 async function loadStatus() {
   const statusEl = document.getElementById("status");
   const playersEl = document.getElementById("players");
@@ -65,10 +69,18 @@ async function login() {
       password: pass.value
     })
   });
+
+  if (!res.ok){
+    alert("Login failed");
+    return;
+  }
+
   const data = await res.json();
   localStorage.setItem("token", data.token);
-  alert("Login success");
+
+  window.location.href = "/admin.html"; // ไปหน้าใหม่
 }
+
 
 async function openAdmin() {
   const token = localStorage.getItem("token");

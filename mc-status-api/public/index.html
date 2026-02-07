@@ -7,6 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <button id="loginBtn" class="login-btn">Admin Login</button>
+
   <div class="card">
     <h1>⛏ Minecraft Server</h1>
     <p id="status" class="offline">● Offline</p>
@@ -33,17 +36,17 @@
     <button onclick="loadStatus()">Refresh</button>
   </div>
 
-  <div id="auth">
-    <h2>Admin Login</h2>
-    <input id="user" placeholder="username">
-    <input id="pass" type="password" placeholder="password">
-    <button onclick="login()">Login</button>
-    <button onclick="register()">Register</button>
+  <div id="loginModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>⛏ Admin Login</h2>
+      <input id="user" placeholder="Username">
+      <input id="pass" type="password" placeholder="Password">
+      <button onclick="login()">Login</button>
+      <button id="closeLogin" class="close-btn">Cancel</button>
+    </div>
   </div>
-
-<button onclick="openAdmin()">Admin Panel</button>
-
 
   <script src="script.js"></script>
 </body>
+
 </html>
