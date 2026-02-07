@@ -17,6 +17,7 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "minecraft-server-util": "^5.4.4",
-    "mongoose": "^9.1.6"
+    "mongoose": "^9.1.6",
+    "rcon-client": "^4.2.5"
   }
 }

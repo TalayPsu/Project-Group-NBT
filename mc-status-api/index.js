@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
+const { Rcon } = require("rcon-client");
 
 const app = express();
 app.use(cors());
@@ -15,8 +16,25 @@ app.use(express.static(path.join(__dirname, "public")));
 /* ================== CONFIG ================== */
 const SERVER_IP = "34.15.159.180";
 const SERVER_PORT = 25565;
-const JWT_SECRET = "secret"; // เปลี่ยนเป็นยากๆ
+const JWT_SECRET = "secret"; 
 
+/* ================== RCON ================== */
+const rcon = new Rcon({
+  host: "127.0.0.1",   
+  port: 25575,
+  password: "secret"
+});
+
+(async () => {
+  try {
+    await rcon.connect();
+    console.log("✅ RCON connected");
+  } catch (err) {
+    console.error("❌ RCON connection failed", err);
+  }
+})();
+
+/* ================== MONGOD ================== */
 mongoose.connect("mongodb://127.0.0.1:27017/minecraft-admin")
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
@@ -66,6 +84,27 @@ app.post("/api/login", async (req, res) => {
 /* ================== ADMIN PANEL ================== */
 app.get("/api/admin", auth, (req, res) => {
   res.json({ message: "Welcome Admin", user: req.user });
+});
+
+app.post("/api/admin/ban", auth, async (req, res) => {
+  const player = req.body.player;
+  const reason = req.body.reason || "Banned by admin";
+
+  await rcon.send("ban " + player + " " + reason);
+
+  res.json({
+    message: "Player " + player + " banned"
+  });
+});
+
+app.post("/api/admin/unban", auth, async (req, res) => {
+  const player = req.body.player;
+
+  await rcon.send("pardon " + player);
+
+  res.json({
+    message: "Player " + player + " unbanned"
+  });
 });
 
 /* ================== MINECRAFT STATUS ================== */
