@@ -51,7 +51,7 @@ function renderOnline(players){
       <li class="player-item">
         <span>${p}</span>
         <button class="icon-btn icon-ban"
-          onclick="openModal('ban','${p}')">⛔</button>
+          onclick="openModal('ban','${p}')">Ban</button>
       </li>
     `;
   });
@@ -74,7 +74,7 @@ function renderBanned(players){
       <li class="player-item">
         <span>${p}</span>
         <button class="icon-btn icon-unban"
-          onclick="openModal('unban','${p}')">✔</button>
+          onclick="openModal('unban','${p}')">Unban</button>
       </li>
     `;
   });
