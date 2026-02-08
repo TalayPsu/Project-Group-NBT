@@ -355,6 +355,7 @@ li.player span{
 }
 
 .modal-card input {
+  width: 100%; 
   padding: 14px;
   border-radius: 10px;
   border: none;
@@ -363,6 +364,9 @@ li.player span{
   background: rgba(0,0,0,0.4);
   color: white;
   font-family: inherit;
+
+  margin-bottom: 10px; 
+  box-sizing: border-box;
 }
 
 .admin-row {
