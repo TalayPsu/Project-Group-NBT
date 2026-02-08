@@ -12,6 +12,8 @@ const output = document.getElementById("output");
 const modal = document.getElementById("adminModal");
 const adminContent = document.getElementById("adminContent");
 const regModal = document.getElementById("registerModal");
+const deleteModal = document.getElementById("deleteModal");
+const adminList = document.getElementById("adminList");
 
 /* ===== ของเดิม ===== */
 async function loadAdmin(){
@@ -179,5 +181,48 @@ async function registerAdmin(){
     closeRegister();
   } else {
     alert("❌ Register failed: " + (data.error || "unknown error"));
+  }
+}
+
+function openDelete(){
+  deleteModal.classList.remove("hidden");
+  loadAdminList();
+}
+
+function closeDelete(){
+  deleteModal.classList.add("hidden");
+}
+
+async function loadAdminList(){
+  const res = await fetch("/api/admin/list", {
+    headers: { Authorization: token }
+  });
+  const data = await res.json();
+
+  adminList.innerHTML = data.map(u => `
+    <div class="admin-row">
+      <span>${u.username}</span>
+      <button onclick="confirmDelete('${u._id}', '${u.username}')">❌</button>
+    </div>
+  `).join("");
+}
+
+function confirmDelete(id, username){
+  if (confirm("ต้องการลบ admin: " + username + " ใช่หรือไม่?")) {
+    deleteAdmin(id);
+  }
+}
+
+async function deleteAdmin(id){
+  const res = await fetch("/api/admin/delete/" + id, {
+    method: "DELETE",
+    headers: { Authorization: token }
+  });
+
+  if (res.ok) {
+    alert("ลบสำเร็จ");
+    loadAdminList();
+  } else {
+    alert("ลบไม่สำเร็จ");
   }
 }

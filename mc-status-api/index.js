@@ -167,6 +167,16 @@ app.get("/status", async (req, res) => {
   }
 });
 
+app.get("/api/admin/list", async (req, res) => {
+  const users = await User.find({}, "username");
+  res.json(users);
+});
+
+app.delete("/api/admin/delete/:id", async (req, res) => {
+  await User.findByIdAndDelete(req.params.id);
+  res.json({ message: "deleted" });
+});
+
 app.listen(3000, "0.0.0.0", () => {
   console.log("Server running on port 3000");
 });
