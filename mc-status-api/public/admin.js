@@ -162,7 +162,6 @@ function closeRegister(){
 async function registerAdmin(){
   const username = document.getElementById("regUser").value;
   const password = document.getElementById("regPass").value;
-  const log = document.getElementById("registerLog");
 
   const res = await fetch("/api/admin/register", {
     method: "POST",
@@ -174,5 +173,11 @@ async function registerAdmin(){
   });
 
   const data = await res.json();
-  log.textContent = JSON.stringify(data, null, 2);
+
+  if (res.ok) {
+    alert("✅ Admin created: " + data.username);
+    closeRegister();
+  } else {
+    alert("❌ Register failed: " + (data.error || "unknown error"));
+  }
 }
