@@ -189,7 +189,7 @@ button{
   border-radius: 12px;
   padding: 16px 0;
 
-  background: #ff6c6c;
+  background: #6cff6c;
   color: #1e1e1e;
 
   font-family: inherit;
@@ -197,7 +197,7 @@ button{
   letter-spacing: 1px;
 
   cursor: pointer;
-  box-shadow: 0 5px 0 rgba(168,63,63,.95);
+  box-shadow: 0 5px 0 rgba(63,168,63,0.95);
 }
 
 button:hover{ filter: brightness(1.05); }
@@ -246,6 +246,11 @@ li.player span{
   width: auto;
   padding: 14px 18px;
   font-size: 12px;
+}
+
+#logoutBtn{
+  background: #ff6c6c;
+  box-shadow: 0 5px 0 rgba(168,63,63,.95);
 }
 
 /* ===== Modal ===== */
