@@ -14,7 +14,11 @@ async function loadAdmin(){
   });
   const data = await res.json();
 
-  adminContent.innerHTML = data.users.map(u => `
+  const list = Array.isArray(data) ? data : data.users;
+
+  console.log(data);
+
+  adminContent.innerHTML = list.map(u => `
   <div class="admin-row">
     <span>ID</span><span>${u._id}</span>
   </div>
