@@ -109,22 +109,25 @@ app.post("/api/admin/unban", auth, async (req, res) => {
   });
 });
 
-/* ================== BANNED LIST ================== */
-app.get("/api/admin/banned", auth, (req, res) => {
+/* ================== GET BANNED PLAYERS ================== */
+app.get("/api/admin/banned", auth, async (req, res) => {
   try {
-    const raw = fs.readFileSync(
-      "/home/minecraft/minecraft/data/banned-players.json",
-      "utf8"
-    );
+    const result = await rcon.send("banlist");
 
-    const banned = JSON.parse(raw);
+    /*
+      ตัวอย่าง output:
+      There are 1 banned players:
+      - AECEboom
+    */
 
-    // ส่งแค่ชื่อ player
-    const players = banned.map(p => p.name);
+    const banned = result
+      .split("\n")
+      .filter(line => line.trim().startsWith("- "))
+      .map(line => line.replace("- ", "").trim());
 
-    res.json({ players });
+    res.json({ players: banned });
   } catch (err) {
-    console.error("Read banned error", err);
+    console.error("Banned fetch error:", err);
     res.json({ players: [] });
   }
 });
