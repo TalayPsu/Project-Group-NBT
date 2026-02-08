@@ -202,7 +202,7 @@ async function loadAdminList(){
   adminList.innerHTML = data.map(u => `
     <div class="admin-row">
       <span>${u.username}</span>
-      <button id="deleteBtn" onclick="confirmDelete('${u._id}', '${u.username}')">❌</button>
+      <button id="deleteBtn" onclick="confirmDelete('${u._id}', '${u.username}')"></button>
     </div>
   `).join("");
 }
