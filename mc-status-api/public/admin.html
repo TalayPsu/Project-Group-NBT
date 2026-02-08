@@ -2,38 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Minecraft Admin Panel</title>
+  <title>🛠 Minecraft Admin Panel</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="layout">
+<div class="card">
+  <h1>🛠 Admin Panel</h1>
+  <p>Welcome Admin</p>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <h2>⛏ ADMIN</h2>
-    <button onclick="showPanel('players')">👥 Players</button>
-    <button onclick="showPanel('banned')">🚫 Banned</button>
-    <button onclick="logout()">🚪 Logout</button>
-  </aside>
+  <!-- ===== ADMIN INFO (ของเดิม) ===== -->
+  <button onclick="loadAdmin()">Load Admin Info</button>
+  <pre id="output"></pre>
 
-  <!-- MAIN -->
-  <main class="content">
+  <hr>
 
-    <!-- PLAYERS -->
-    <section id="players" class="panel active">
-      <h1>Online Players</h1>
-      <ul id="playerList"></ul>
-    </section>
+  <!-- ===== PLAYER MANAGEMENT (ของใหม่) ===== -->
+  <h2>Online Players</h2>
 
-    <!-- BANNED -->
-    <section id="banned" class="panel">
-      <h1>Banned Players</h1>
-      <ul id="bannedList"></ul>
-    </section>
+  <select id="playerSelect" class="select">
+    <option value="">-- Select Player --</option>
+  </select>
 
-  </main>
+  <input id="reason" placeholder="Reason (optional)" />
+
+  <div class="admin-actions">
+    <button onclick="banPlayer()">❌ Ban</button>
+    <button onclick="unbanPlayer()">✅ Unban</button>
+  </div>
+
+  <pre id="log"></pre>
+
+  <button onclick="logout()" class="close-btn">Logout</button>
 </div>
 
 <script src="admin.js"></script>
