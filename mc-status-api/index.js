@@ -107,6 +107,34 @@ app.post("/api/admin/unban", auth, async (req, res) => {
   });
 });
 
+/* ================== GET BANNED PLAYERS ================== */
+app.get("/api/admin/banned", auth, async (req, res) => {
+  try {
+    // ใช้คำสั่ง banlist ของ Minecraft
+    const result = await rcon.send("banlist players");
+
+    /**
+     * ตัวอย่าง result:
+     * There are 1 banned players:
+     * - AECEboom
+     */
+
+    const lines = result.split("\n");
+
+    const players = lines
+      .filter(l => l.startsWith("- "))
+      .map(l => l.replace("- ", "").trim());
+
+    res.json({
+      banned: players
+    });
+
+  } catch (err) {
+    res.status(500).json({ error: "Failed to get banned list" });
+  }
+});
+
+
 /* ================== MINECRAFT STATUS ================== */
 app.get("/status", async (req, res) => {
   try {
