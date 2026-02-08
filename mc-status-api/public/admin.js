@@ -14,10 +14,15 @@ async function loadAdmin(){
   });
   const data = await res.json();
 
-  adminContent.innerHTML = `
-    <div class="admin-row"><span>ID</span><span>${data.users.id}</span></div>
-    <div class="admin-row"><span>Username</span><span>${data.users.username}</span></div>
-  `;
+  adminContent.innerHTML = data.users.map(u => `
+  <div class="admin-row">
+    <span>ID</span><span>${u._id}</span>
+  </div>
+  <div class="admin-row">
+    <span>Username</span><span>${u.username}</span>
+  </div>
+  <hr>
+`).join("");
 
   modal.classList.remove("hidden");
 }
