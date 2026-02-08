@@ -1,76 +1,108 @@
 const token = localStorage.getItem("token");
 if (!token) location.href = "/";
 
-const output = document.getElementById("output");
-const logEl = document.getElementById("log");
-const playerSelect = document.getElementById("playerSelect");
+const playerList = document.getElementById("playerList");
+const bannedList = document.getElementById("bannedList");
 
-/* ===== ของเดิม ===== */
-async function loadAdmin(){
-  const res = await fetch("/api/admin", {
-    headers: { Authorization: token }
-  });
-  const data = await res.json();
-  output.textContent = JSON.stringify(data, null, 2);
+/* ===== PANEL SWITCH ===== */
+function showPanel(id) {
+  document.querySelectorAll(".panel").forEach(p => p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }
 
-/* ===== โหลดรายชื่อผู้เล่น ===== */
-async function loadPlayers(){
+/* ===== LOAD ONLINE PLAYERS ===== */
+async function loadPlayers() {
   const res = await fetch("/status");
   const data = await res.json();
 
-  playerSelect.innerHTML =
-    '<option value="">-- Select Player --</option>';
+  playerList.innerHTML = "";
 
   (data.playerNames || []).forEach(p => {
-    const opt = document.createElement("option");
-    opt.value = p;
-    opt.textContent = p;
-    playerSelect.appendChild(opt);
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <img src="https://mc-heads.net/avatar/${p}/32">
+      <span>${p}</span>
+      <button onclick="ban('${p}')">Ban</button>
+      <button onclick="op('${p}')">Op</button>
+      <button onclick="deop('${p}')">Deop</button>
+    `;
+    playerList.appendChild(li);
   });
 }
 
-/* ===== ban ===== */
-async function banPlayer(){
-  const player = playerSelect.value;
-  const reason = document.getElementById("reason").value;
-
-  if (!player) return alert("Select player first");
-
-  const res = await fetch("/api/admin/ban", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": token
-    },
-    body: JSON.stringify({ player, reason })
+/* ===== LOAD BANNED LIST ===== */
+async function loadBanned() {
+  const res = await fetch("/api/admin/banned", {
+    headers: { Authorization: token }
   });
+  const data = await res.json();
 
-  logEl.textContent = JSON.stringify(await res.json(), null, 2);
+  bannedList.innerHTML = "";
+
+  data.forEach(p => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span>${p}</span>
+      <button onclick="unban('${p}')">Unban</button>
+    `;
+    bannedList.appendChild(li);
+  });
 }
 
-/* ===== unban ===== */
-async function unbanPlayer(){
-  const player = playerSelect.value;
-  if (!player) return alert("Select player first");
-
-  const res = await fetch("/api/admin/unban", {
+/* ===== ACTIONS ===== */
+async function ban(player) {
+  await fetch("/api/admin/ban", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": token
+      Authorization: token
     },
     body: JSON.stringify({ player })
   });
-
-  logEl.textContent = JSON.stringify(await res.json(), null, 2);
+  loadPlayers();
 }
 
-/* ===== logout ===== */
-function logout(){
+async function unban(player) {
+  await fetch("/api/admin/unban", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token
+    },
+    body: JSON.stringify({ player })
+  });
+  loadBanned();
+}
+
+async function op(player) {
+  await fetch("/api/admin/op", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token
+    },
+    body: JSON.stringify({ player })
+  });
+}
+
+async function deop(player) {
+  await fetch("/api/admin/deop", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token
+    },
+    body: JSON.stringify({ player })
+  });
+}
+
+/* ===== LOGOUT ===== */
+function logout() {
   localStorage.removeItem("token");
   location.href = "/";
 }
 
-/* init */
+/* ===== LIVE REFRESH ===== */
 loadPlayers();
+loadBanned();
+setInterval(loadPlayers, 5000); // live refresh

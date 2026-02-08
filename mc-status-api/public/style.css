@@ -315,3 +315,54 @@ li.player span{
   min-height: 80px;
   overflow: auto;
 }
+
+/* ================= ADMIN PANEL ================= */
+
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #1b1b1b;
+  padding: 20px;
+  box-shadow: inset -4px 0 #000;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+}
+
+.sidebar button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+}
+
+.panel ul {
+  list-style: none;
+  padding: 0;
+}
+
+.panel li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #3a3a3a;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: inset -2px -2px #000;
+}
