@@ -1,9 +1,14 @@
 const token = localStorage.getItem("token");
 if (!token) location.href = "/";
 
+const onlineList = document.getElementById("onlineList");
+const bannedList = document.getElementById("bannedList");
+const actionModal = document.getElementById("actionModal");
+
+let selectedPlayer = "";
+let currentAction = ""; // "ban" | "unban"
+
 const output = document.getElementById("output");
-const logEl = document.getElementById("log");
-const playerSelect = document.getElementById("playerSelect");
 const modal = document.getElementById("adminModal");
 const adminContent = document.getElementById("adminContent");
 
@@ -33,52 +38,89 @@ async function loadPlayers(){
   const res = await fetch("/status");
   const data = await res.json();
 
-  playerSelect.innerHTML =
-    '<option value="">-- Select Player --</option>';
+  renderOnline(data.playerNames || []);
+  loadBannedPlayers();
+}
 
-  (data.playerNames || []).forEach(p => {
-    const opt = document.createElement("option");
-    opt.value = p;
-    opt.textContent = p;
-    playerSelect.appendChild(opt);
+function renderOnline(players){
+  onlineList.innerHTML = "";
+
+  players.forEach(p => {
+    onlineList.innerHTML += `
+      <li class="player-item">
+        <span>${p}</span>
+        <button class="icon-btn icon-ban"
+          onclick="openModal('ban','${p}')">⛔</button>
+      </li>
+    `;
   });
 }
 
-/* ===== ban ===== */
-async function banPlayer(){
-  const player = playerSelect.value;
-  const reason = document.getElementById("reason").value;
+async function loadBannedPlayers(){
+  const res = await fetch("/api/admin/banned", {
+    headers: { Authorization: token }
+  });
 
-  if (!player) return alert("Select player first");
+  const data = await res.json();
+  renderBanned(data.players || []);
+}
 
-  const res = await fetch("/api/admin/ban", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+function renderBanned(players){
+  bannedList.innerHTML = "";
+
+  players.forEach(p => {
+    bannedList.innerHTML += `
+      <li class="player-item">
+        <span>${p}</span>
+        <button class="icon-btn icon-unban"
+          onclick="openModal('unban','${p}')">✔</button>
+      </li>
+    `;
+  });
+}
+
+function openModal(action, player){
+  currentAction = action;
+  selectedPlayer = player;
+
+  document.getElementById("modalTitle").textContent =
+    action === "ban" ? "Ban Player" : "Unban Player";
+
+  document.getElementById("modalPlayer").textContent = player;
+
+  document.getElementById("modalReason").style.display =
+    action === "ban" ? "block" : "none";
+
+  actionModal.classList.remove("hidden");
+}
+
+function closeModal(){
+  actionModal.classList.add("hidden");
+}
+
+async function confirmAction(){
+  const reason = document.getElementById("modalReason").value;
+
+  const url = currentAction === "ban"
+    ? "/api/admin/ban"
+    : "/api/admin/unban";
+
+  await fetch(url,{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json",
       "Authorization": token
     },
-    body: JSON.stringify({ player, reason })
+    body: JSON.stringify({
+      player: selectedPlayer,
+      reason
+    })
   });
 
-  logEl.textContent = JSON.stringify(await res.json(), null, 2);
+  closeModal();
+  loadPlayers(); // refresh ทั้งสองฝั่ง
 }
 
-/* ===== unban ===== */
-async function unbanPlayer(){
-  const player = playerSelect.value;
-  if (!player) return alert("Select player first");
-
-  const res = await fetch("/api/admin/unban", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": token
-    },
-    body: JSON.stringify({ player })
-  });
-
-  logEl.textContent = JSON.stringify(await res.json(), null, 2);
-}
 
 /* ===== logout ===== */
 function logout(){

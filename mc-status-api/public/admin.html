@@ -18,24 +18,37 @@
 
   <hr>
 
-  <!-- ===== PLAYER MANAGEMENT (ของใหม่) ===== -->
-  <h2>Online Players</h2>
+  <!-- ===== Player Management ===== -->
+<div class="player-manage">
 
-  <select id="playerSelect" class="select">
-    <option value="">-- Select Player --</option>
-  </select>
-
-  <input id="reason" placeholder="Reason (optional)" />
-
-  <div class="admin-actions">
-    <button onclick="banPlayer()">❌ Ban</button>
-    <button onclick="unbanPlayer()">✅ Unban</button>
+  <!-- LEFT : BAN -->
+  <div class="player-box">
+    <h3>⛔ Ban Player</h3>
+    <ul id="onlineList" class="player-list"></ul>
   </div>
 
-  <pre id="log"></pre>
+  <!-- RIGHT : UNBAN -->
+  <div class="player-box">
+    <h3>✔ Banned Players</h3>
+    <ul id="bannedList" class="player-list"></ul>
+  </div>
 
-  <button onclick="logout()" class="close-btn">Logout</button>
 </div>
+
+<!-- ===== Ban / Unban Modal ===== -->
+<div id="actionModal" class="modal hidden">
+  <div class="modal-card">
+    <h2 id="modalTitle">Ban Player</h2>
+
+    <p><b id="modalPlayer">Steve</b></p>
+
+    <input id="modalReason" placeholder="Reason (optional)">
+
+    <button onclick="confirmAction()">Confirm</button>
+    <button class="close-btn" onclick="closeModal()">Cancel</button>
+  </div>
+</div>
+
 
 <!-- ===== ADMIN POPUP ===== -->
 <div id="adminModal" class="modal hidden">
