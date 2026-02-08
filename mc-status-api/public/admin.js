@@ -14,6 +14,8 @@ async function loadAdmin(){
   });
   const data = await res.json();
 
+  console.log(data);
+
   adminContent.innerHTML = `
     <div class="admin-row"><span>ID</span><span>${data.id}</span></div>
     <div class="admin-row"><span>Username</span><span>${data.username}</span></div>
