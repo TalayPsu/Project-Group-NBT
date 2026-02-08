@@ -7,6 +7,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const { Rcon } = require("rcon-client");
+const fs = require("fs");
+
 
 const app = express();
 app.use(cors());
@@ -107,32 +109,26 @@ app.post("/api/admin/unban", auth, async (req, res) => {
   });
 });
 
-/* ================== GET BANNED PLAYERS ================== */
-app.get("/api/admin/banned", auth, async (req, res) => {
+/* ================== BANNED LIST ================== */
+app.get("/api/admin/banned", auth, (req, res) => {
   try {
-    // ใช้คำสั่ง banlist ของ Minecraft
-    const result = await rcon.send("banlist players");
+    const raw = fs.readFileSync(
+      "/home/minecraft/minecraft/data/banned-players.json",
+      "utf8"
+    );
 
-    /**
-     * ตัวอย่าง result:
-     * There are 1 banned players:
-     * - AECEboom
-     */
+    const banned = JSON.parse(raw);
 
-    const lines = result.split("\n");
+    // ส่งแค่ชื่อ player
+    const players = banned.map(p => p.name);
 
-    const players = lines
-      .filter(l => l.startsWith("- "))
-      .map(l => l.replace("- ", "").trim());
-
-    res.json({
-      banned: players
-    });
-
+    res.json({ players });
   } catch (err) {
-    res.status(500).json({ error: "Failed to get banned list" });
+    console.error("Read banned error", err);
+    res.json({ players: [] });
   }
 });
+
 
 
 /* ================== MINECRAFT STATUS ================== */
