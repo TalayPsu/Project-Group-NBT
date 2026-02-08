@@ -10,7 +10,7 @@ async function loadStatus() {
     const res = await fetch("/status");
     const data = await res.json();
 
-    statusEl.textContent = "● Online";
+    statusEl.textContent = "Online";
     statusEl.className = "online";
 
     document.getElementById("online").textContent = data.online;
@@ -43,7 +43,7 @@ async function loadStatus() {
     }
 
   } catch (e) {
-    statusEl.textContent = "● Offline";
+    statusEl.textContent = "Offline";
     statusEl.className = "offline";
     playersEl.innerHTML = "<li>Server offline</li>";
   }
