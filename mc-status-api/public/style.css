@@ -369,7 +369,7 @@ li.player span{
   box-sizing: border-box;
 }
 
-.modalReason {
+#modalReason {
   width: 100%; 
   padding: 14px;
   border-radius: 10px;
