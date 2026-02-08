@@ -354,6 +354,12 @@ li.player span{
   margin-bottom: 12px;
 }
 
+.modal-card input {
+  width: 100%;
+  margin: 6px 0;
+  padding: 8px;
+}
+
 .admin-row {
   display: flex;
   justify-content: space-between;

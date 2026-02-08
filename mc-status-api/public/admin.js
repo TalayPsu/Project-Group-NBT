@@ -11,6 +11,7 @@ let currentAction = ""; // "ban" | "unban"
 const output = document.getElementById("output");
 const modal = document.getElementById("adminModal");
 const adminContent = document.getElementById("adminContent");
+const regModal = document.getElementById("registerModal");
 
 /* ===== ของเดิม ===== */
 async function loadAdmin(){
@@ -135,6 +136,32 @@ loadPlayers();
 async function registerAdmin(){
   const username = document.getElementById("newUser").value;
   const password = document.getElementById("newPass").value;
+  const log = document.getElementById("registerLog");
+
+  const res = await fetch("/api/admin/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token
+    },
+    body: JSON.stringify({ username, password })
+  });
+
+  const data = await res.json();
+  log.textContent = JSON.stringify(data, null, 2);
+}
+
+function openRegister(){
+  regModal.classList.remove("hidden");
+}
+
+function closeRegister(){
+  regModal.classList.add("hidden");
+}
+
+async function registerAdmin(){
+  const username = document.getElementById("regUser").value;
+  const password = document.getElementById("regPass").value;
   const log = document.getElementById("registerLog");
 
   const res = await fetch("/api/admin/register", {

@@ -22,14 +22,22 @@
   <hr>
 
   <!-- ===== ADMIN REGISTER ===== -->
+  <button onclick="openRegister()">➕ Register Admin</button>
 
-  <h3>➕ Register New Admin</h3>
+  <!-- POPUP REGISTER -->
+  <div id="registerModal" class="modal hidden">
+    <div class="modal-card">
+      <h2>Register Admin</h2>
 
-  <input id="newUser" placeholder="Username">
-  <input id="newPass" type="password" placeholder="Password">
-  <button onclick="registerAdmin()">Register</button>
+      <input id="regUser" placeholder="Username">
+      <input id="regPass" type="password" placeholder="Password">
 
-  <pre id="registerLog"></pre>
+      <button onclick="registerAdmin()">Register</button>
+      <button class="close-btn" onclick="closeRegister()">Cancel</button>
+
+      <pre id="registerLog"></pre>
+    </div>
+  </div>
 
   <!-- ===== Player Management ===== -->
 <div class="player-manage">
