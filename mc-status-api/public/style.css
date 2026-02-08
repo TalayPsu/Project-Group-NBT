@@ -451,6 +451,7 @@ li.player span{
 
 .icon-ban{
   background: #ff6c6c;
+  box-shadow: 0 5px 0 rgba(235, 58, 58, 0.95);
 }
 
 .icon-unban{
