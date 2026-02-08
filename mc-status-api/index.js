@@ -9,7 +9,6 @@ const bodyParser = require("body-parser");
 const { Rcon } = require("rcon-client");
 const fs = require("fs");
 
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -46,7 +45,24 @@ const UserSchema = new mongoose.Schema({
   username: String,
   password: String
 });
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model("User", new mongoose.Schema({
+  username: String,
+  password: String
+}));
+
+app.post("/api/admin/register", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const hash = await bcrypt.hash(password, 10);
+
+    await User.create({ username, password: hash });
+
+    res.json({ message: "Admin created", username });
+  } catch (err) {
+    res.status(500).json({ error: "Register failed" });
+  }
+});
 
 /* ================== AUTH MIDDLEWARE ================== */
 function auth(req, res, next) {
