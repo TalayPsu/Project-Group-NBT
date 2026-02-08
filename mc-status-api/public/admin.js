@@ -14,14 +14,12 @@ async function loadAdmin(){
   });
   const data = await res.json();
 
-  console.log(data);
-
   adminContent.innerHTML = `
-    <div class="admin-row"><span>ID</span><span>${data.id}</span></div>
-    <div class="admin-row"><span>Username</span><span>${data.username}</span></div>
-    <div class="admin-row"><span>Role</span><span>${data.role}</span></div>
-    <div class="admin-row"><span>Status</span><span>${data.status}</span></div>
-  `;
+  <div class="admin-row"><span>Message</span><span>${data.message}</span></div>
+  <div class="admin-row"><span>User ID</span><span>${data.user.id}</span></div>
+  <div class="admin-row"><span>Issued At</span><span>${new Date(data.user.iat * 1000).toLocaleString()}</span></div>
+  <div class="admin-row"><span>Expire</span><span>${new Date(data.user.exp * 1000).toLocaleString()}</span></div>
+`;
 
   modal.classList.remove("hidden");
 }
