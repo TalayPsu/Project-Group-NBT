@@ -4,6 +4,8 @@ if (!token) location.href = "/";
 const output = document.getElementById("output");
 const logEl = document.getElementById("log");
 const playerSelect = document.getElementById("playerSelect");
+const modal = document.getElementById("adminModal");
+const adminContent = document.getElementById("adminContent");
 
 /* ===== ของเดิม ===== */
 async function loadAdmin(){
@@ -11,7 +13,19 @@ async function loadAdmin(){
     headers: { Authorization: token }
   });
   const data = await res.json();
-  output.textContent = JSON.stringify(data, null, 2);
+
+  adminContent.innerHTML = `
+    <div class="admin-row"><span>ID</span><span>${data.id}</span></div>
+    <div class="admin-row"><span>Username</span><span>${data.username}</span></div>
+    <div class="admin-row"><span>Role</span><span>${data.role}</span></div>
+    <div class="admin-row"><span>Status</span><span>${data.status}</span></div>
+  `;
+
+  modal.classList.remove("hidden");
+}
+
+function closeAdmin(){
+  modal.classList.add("hidden");
 }
 
 /* ===== โหลดรายชื่อผู้เล่น ===== */
