@@ -111,26 +111,27 @@ app.post("/api/admin/unban", auth, async (req, res) => {
 
 app.get("/api/admin/banned", auth, async (req, res) => {
   try {
-    const result = await rcon.send("banlist players");
+    const result = await rcon.send("banlist");
 
     // ตัวอย่าง result:
-    // There are 1 banned players:
-    // AECEboom: being toxic...
+    // There are 1 ban(s):AECEboom was banned by Rcon: Banned by admin
 
-    const players = result
-      .split("\n")
-      .slice(1)
-      .map(line => line.split(":")[0].trim())
-      .filter(Boolean);
+    let players = [];
+
+    const idx = result.indexOf(":");
+    if (idx !== -1) {
+      const listPart = result.slice(idx + 1).trim();
+      players = listPart
+        .split(",")
+        .map(p => p.split(" ")[0].trim())
+        .filter(Boolean);
+    }
 
     res.json({ players });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
-
-
-
 
 
 /* ================== MINECRAFT STATUS ================== */
