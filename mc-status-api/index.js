@@ -109,31 +109,26 @@ app.post("/api/admin/unban", auth, async (req, res) => {
   });
 });
 
-/* ================== GET BANNED PLAYERS ================== */
-app.get("/api/admin/banned", auth, async (req, res) => {
+const fs = require("fs");
+
+/* ===== GET BANNED PLAYERS ===== */
+app.get("/api/admin/banned", auth, (req, res) => {
   try {
-    const result = await rcon.send("banlist");
+    const bannedPath = path.join(__dirname, "minecraft", "data", "banned-players.json");
+    // ⚠️ ถ้า path ไม่ตรง แก้ให้ตรงกับที่คุณ cat ดูใน server
 
-    // 👇 บรรทัดนี้แหละที่คุณถามถึง
-    console.log("BANLIST RAW:", result);
+    const raw = fs.readFileSync(bannedPath, "utf8");
+    const banned = JSON.parse(raw);
 
-    /*
-      ตัวอย่าง output ที่เราคาดหวัง:
-      There are 1 banned players:
-      - AECEboom
-    */
-
-    const players = result
-      .split("\n")
-      .filter(line => line.trim().startsWith("- "))
-      .map(line => line.replace("- ", "").trim());
+    const players = banned.map(p => p.name);
 
     res.json({ players });
   } catch (err) {
-    console.error("BANNED LIST ERROR:", err);
-    res.json({ players: [] });
+    console.error(err);
+    res.status(500).json({ error: "Cannot read banned players" });
   }
 });
+
 
 
 
