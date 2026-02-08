@@ -109,8 +109,6 @@ app.post("/api/admin/unban", auth, async (req, res) => {
   });
 });
 
-const fs = require("fs");
-
 /* ===== GET BANNED PLAYERS ===== */
 app.get("/api/admin/banned", auth, (req, res) => {
   try {
