@@ -290,3 +290,28 @@ li.player span{
   background: #ff6c6c;
   box-shadow: 0 5px 0 rgba(168,63,63,.95);
 }
+
+/* ===== Admin UI ===== */
+.select{
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  font-family: inherit;
+}
+
+.admin-actions{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+#log{
+  background: rgba(0,0,0,0.7);
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  min-height: 80px;
+  overflow: auto;
+}

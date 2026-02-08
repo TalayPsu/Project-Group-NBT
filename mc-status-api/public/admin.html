@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Panel</title>
+  <title>🛠 Minecraft Admin Panel</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -11,28 +12,31 @@
   <h1>🛠 Admin Panel</h1>
   <p>Welcome Admin</p>
 
+  <!-- ===== ADMIN INFO (ของเดิม) ===== -->
   <button onclick="loadAdmin()">Load Admin Info</button>
-  <button onclick="logout()">Logout</button>
-
   <pre id="output"></pre>
+
+  <hr>
+
+  <!-- ===== PLAYER MANAGEMENT (ของใหม่) ===== -->
+  <h2>Online Players</h2>
+
+  <select id="playerSelect" class="select">
+    <option value="">-- Select Player --</option>
+  </select>
+
+  <input id="reason" placeholder="Reason (optional)" />
+
+  <div class="admin-actions">
+    <button onclick="banPlayer()">❌ Ban</button>
+    <button onclick="unbanPlayer()">✅ Unban</button>
+  </div>
+
+  <pre id="log"></pre>
+
+  <button onclick="logout()" class="close-btn">Logout</button>
 </div>
 
-<script>
-async function loadAdmin(){
-  const token = localStorage.getItem("token");
-  const res = await fetch("/api/admin", {
-    headers: { Authorization: token }
-  });
-
-  const data = await res.json();
-  output.textContent = JSON.stringify(data, null, 2);
-}
-
-function logout(){
-  localStorage.removeItem("token");
-  location.href = "/";
-}
-</script>
-
+<script src="admin.js"></script>
 </body>
 </html>
