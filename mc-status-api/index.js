@@ -109,23 +109,26 @@ app.post("/api/admin/unban", auth, async (req, res) => {
   });
 });
 
-/* ===== GET BANNED PLAYERS ===== */
-app.get("/api/admin/banned", auth, (req, res) => {
+app.get("/api/admin/banned", auth, async (req, res) => {
   try {
-    const bannedPath = path.join(__dirname, "minecraft", "data", "banned-players.json");
-    // ⚠️ ถ้า path ไม่ตรง แก้ให้ตรงกับที่คุณ cat ดูใน server
+    const result = await rcon.send("banlist players");
 
-    const raw = fs.readFileSync(bannedPath, "utf8");
-    const banned = JSON.parse(raw);
+    // ตัวอย่าง result:
+    // There are 1 banned players:
+    // AECEboom: being toxic...
 
-    const players = banned.map(p => p.name);
+    const players = result
+      .split("\n")
+      .slice(1)
+      .map(line => line.split(":")[0].trim())
+      .filter(Boolean);
 
     res.json({ players });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Cannot read banned players" });
+    res.status(500).json({ error: err.message });
   }
 });
+
 
 
 
