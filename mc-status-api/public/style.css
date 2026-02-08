@@ -248,9 +248,31 @@ li.player span{
   font-size: 12px;
 }
 
+/* ===== Logout button ===== */
 #logoutBtn{
   background: #ff6c6c;
   box-shadow: 0 5px 0 rgba(168,63,63,.95);
+}
+
+#deleteModal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  width: 30px;
+  height: 30px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #ff6c6c;
+  color: #1e1e1e;
+
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+
+  padding: 0;
 }
 
 /* ===== Modal ===== */
