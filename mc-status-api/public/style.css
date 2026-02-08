@@ -189,7 +189,7 @@ button{
   border-radius: 12px;
   padding: 16px 0;
 
-  background: #6cff6c;
+  background: #ff6c6c;
   color: #1e1e1e;
 
   font-family: inherit;
@@ -197,7 +197,7 @@ button{
   letter-spacing: 1px;
 
   cursor: pointer;
-  box-shadow: 0 5px 0 rgba(63,168,63,0.95);
+  box-shadow: 0 5px 0 rgba(168,63,63,.95);
 }
 
 button:hover{ filter: brightness(1.05); }
