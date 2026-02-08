@@ -114,20 +114,23 @@ app.get("/api/admin/banned", auth, async (req, res) => {
   try {
     const result = await rcon.send("banlist");
 
+    // 👇 บรรทัดนี้แหละที่คุณถามถึง
+    console.log("BANLIST RAW:", result);
+
     /*
-      ตัวอย่าง output:
+      ตัวอย่าง output ที่เราคาดหวัง:
       There are 1 banned players:
       - AECEboom
     */
 
-    const banned = result
+    const players = result
       .split("\n")
       .filter(line => line.trim().startsWith("- "))
       .map(line => line.replace("- ", "").trim());
 
-    res.json({ players: banned });
+    res.json({ players });
   } catch (err) {
-    console.error("Banned fetch error:", err);
+    console.error("BANNED LIST ERROR:", err);
     res.json({ players: [] });
   }
 });
