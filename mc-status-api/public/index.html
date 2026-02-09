@@ -12,6 +12,14 @@
 
   <div class="card">
     <h1>Minecraft Server</h1>
+
+    <!-- SERVER IP -->
+    <p class="server-ip">
+      <a id="server_ip" target="_blank">
+        Server ip : 34.15.129.81:25565 (Works Only On Official Java Vanilla)
+      </a>
+    </p>
+
     <p id="status" class="offline">Offline</p>
 
     <div class="stats">
@@ -30,12 +38,13 @@
 
     <h2>Players</h2>
     <ul id="players">
-      <li>No players</li>
+      <li>Server offline</li>
     </ul>
 
-    <button onclick="loadStatus()">Refresh</button>
+    <button onclick="loadStatus()" class="refresh-btn">Refresh</button>
   </div>
 
+  <!-- LOGIN MODAL -->
   <div id="loginModal" class="modal hidden">
     <div class="modal-content">
       <h2>Admin Login</h2>
@@ -48,5 +57,4 @@
 
   <script src="script.js"></script>
 </body>
-
 </html>

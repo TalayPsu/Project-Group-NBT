@@ -61,6 +61,12 @@ h1{
     0 0 10px rgba(108,255,108,0.25);
 }
 
+.server-ip {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0;
+}
+
 /* Status bar */
 #status{
   width: 100%;
