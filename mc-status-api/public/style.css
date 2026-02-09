@@ -29,7 +29,6 @@ body{
 
 /* Main panel */
 .card{
-  width: min(96vw, 1600px);
   padding: 22px 22px 18px;
   border-radius: 22px;
 
