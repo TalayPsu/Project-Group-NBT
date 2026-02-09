@@ -481,3 +481,40 @@ li.player span{
 .icon-unban{
   background: #6cff6c;
 }
+
+@media (max-width: 600px){
+
+  /* Admin action buttons: จาก 2 คอลัมน์ → 1 คอลัมน์ */
+  .admin-actions{
+    grid-template-columns: 1fr;
+  }
+
+  /* Player manage: จาก 2 กล่อง → เรียงลง */
+  .player-manage{
+    grid-template-columns: 1fr;
+  }
+
+  /* Player item ให้ยืดและไม่ซ้อน */
+  .player-item{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* ปุ่ม icon ไม่เบียด */
+  .icon-btn{
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  /* ปรับหัวให้เล็กลง */
+  h1{ font-size: 24px; }
+  h2{ font-size: 20px; }
+  .player-box h3{ font-size: 16px; }
+
+  /* การ์ดไม่ชิดขอบ */
+  .card{
+    padding: 16px;
+  }
+}
