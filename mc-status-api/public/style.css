@@ -152,10 +152,10 @@ h2{
 ul{
   margin: 0;
   padding: 0;
-
-  list-style: none; /* we'll draw bullet ourselves */
-  max-height: 170px;
-  overflow: hidden;
+  list-style: none;
+  max-height: 170px;     
+  overflow-y: auto;    
+  overflow-x: hidden;
 }
 
 ul li{
@@ -516,5 +516,24 @@ li.player span{
   /* การ์ดไม่ชิดขอบ */
   .card{
     padding: 16px;
+  }
+}
+
+#onlineList{
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+/* Banned players */
+#bannedList{
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+@media (max-width:600px){
+  ul,
+  #onlineList,
+  #bannedList{
+    max-height: 180px;
   }
 }
